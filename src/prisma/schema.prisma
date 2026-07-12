@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Admin {
+  id           String   @id @default(uuid())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Media {
+  id           String        @id @default(uuid())
+  url          String
+  publicId     String
+  type         MediaType
+  caption      String?
+  order        Int           @default(0)
+  createdAt    DateTime      @default(now())
+  testimonials Testimonial[]
+}
+
+model Testimonial {
+  id        String   @id @default(uuid())
+  name      String
+  role      String?
+  content   String
+  mediaId   String?
+  rating    Int?
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  media     Media?   @relation(fields: [mediaId], references: [id])
+}
+
+model ContactForm {
+  id     String @id @default(uuid())
+  slug   String @unique
+  name   String
+  fields Json
+}
+
+model ContactSubmission {
+  id        String   @id @default(uuid())
+  formSlug  String
+  data      Json
+  createdAt DateTime @default(now())
+}
+
+enum MediaType {
+  GALLERY
+  TESTIMONIAL
+}

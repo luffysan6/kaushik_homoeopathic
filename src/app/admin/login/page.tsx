@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { loginAction } from "@/lib/actions/auth.ts";
-
+import { loginAction } from "@/lib/actions/auth";
 
 export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
@@ -20,12 +19,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
+    <div className="flex min-h-screen items-center justify-center bg-gray-600">
       <form
         action={handleSubmit}
         className="w-full max-w-sm space-y-4 rounded-lg border bg-white p-8 shadow-sm"
       >
-        <h1 className="text-xl font-semibold text-center">Admin Login</h1>
+        <h1 className="text-xl font-semibold text-center text-black">
+          Admin Login
+        </h1>
 
         {error && (
           <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">
@@ -34,7 +35,10 @@ export default function LoginPage() {
         )}
 
         <div>
-          <label htmlFor="username" className="block text-sm font-medium mb-1">
+          <label
+            htmlFor="username"
+            className="block text-black text-sm font-medium mb-1"
+          >
             Username
           </label>
           <input
@@ -48,7 +52,10 @@ export default function LoginPage() {
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium mb-1">
+          <label
+            htmlFor="password"
+            className="block text-black text-sm font-medium mb-1"
+          >
             Password
           </label>
           <input
