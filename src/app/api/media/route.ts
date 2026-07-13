@@ -20,23 +20,27 @@ export async function POST(request: NextRequest) {
   const caption = formData.get("caption") as string | null;
 
   if (!file || !type) {
-    return NextResponse.json({ error: "File and type are required." }, { status: 400 });
+    return NextResponse.json(
+      { error: "File and type are required." },
+      { status: 400 },
+    );
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
 
-  const uploadResult = await new Promise<{ secure_url: string; public_id: string }>(
-    (resolve, reject) => {
-      const stream = cloudinary.uploader.upload_stream(
-        { folder: `clinic/${type.toLowerCase()}` },
-        (error, result) => {
-          if (error || !result) return reject(error);
-          resolve({ secure_url: result.secure_url, public_id: result.public_id });
-        }
-      );
-      stream.end(buffer);
-    }
-  );
+  const uploadResult = await new Promise<{
+    secure_url: string;
+    public_id: string;
+  }>((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: `clinic/${type.toLowerCase()}` },
+      (error, result) => {
+        if (error || !result) return reject(error);
+        resolve({ secure_url: result.secure_url, public_id: result.public_id });
+      },
+    );
+    stream.end(buffer);
+  });
 
   const media = await prisma.media.create({
     data: {
