@@ -283,7 +283,7 @@ export default function FormsPage() {
                       key={i}
                       className="flex items-center gap-2 rounded-lg border border-gray-200 p-2"
                     >
-                      <GripVertical size={14} className="flex-shrink-0 text-gray-300" />
+                      <GripVertical size={14} className="shrink-0 text-gray-300" />
                       <input
                         type="text"
                         value={field.label}
@@ -302,7 +302,7 @@ export default function FormsPage() {
                           </option>
                         ))}
                       </select>
-                      <label className="flex flex-shrink-0 items-center gap-1 text-xs text-gray-500">
+                      <label className="flex shrink-0 items-center gap-1 text-xs text-gray-500">
                         <input
                           type="checkbox"
                           checked={field.required}
@@ -314,7 +314,7 @@ export default function FormsPage() {
                         onClick={() => removeField(i)}
                         title="Remove field"
                         aria-label="Remove field"
-                        className="flex-shrink-0 text-gray-300 hover:text-red-500"
+                        className="shrink-0 text-gray-300 hover:text-red-500"
                       >
                         <X size={16} />
                       </button>

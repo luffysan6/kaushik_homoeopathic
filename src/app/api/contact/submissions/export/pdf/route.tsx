@@ -26,10 +26,17 @@ export async function GET(request: NextRequest) {
   const keys = Array.from(allKeys);
 
   const buffer = await renderToBuffer(
-    React.createElement(SubmissionsPdf, { submissions, keys }),
+    <SubmissionsPdf
+      submissions={submissions.map((s) => ({
+        ...s,
+        data: (s.data ?? {}) as Record<string, unknown>,
+      }))}
+      keys={keys}
+    />,
+    // React.createElement(SubmissionsPdf, { submissions, keys }),
   );
 
-  return new NextResponse(buffer, {
+  return new NextResponse(new Uint8Array(buffer), {
     headers: {
       "Content-Type": "application/pdf",
       "Content-Disposition": `attachment; filename="submissions-${Date.now()}.pdf"`,
